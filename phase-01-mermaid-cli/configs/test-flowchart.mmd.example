@@ -1,0 +1,8 @@
+flowchart TD
+    A["User Prompt"] --> B{"Complexity<br/>Score"}
+    B -->|Score <= 4| C["Tier 1<br/>Solo Agent"]
+    B -->|Score 5-8| D["Tier 2<br/>Lean Pipeline"]
+    B -->|Score >= 9| E["Tier 3<br/>Full Orchestra"]
+    C --> F["Direct Execution"]
+    D --> G["3 Subagents<br/>+ Review"]
+    E --> H["OCR + Codex<br/>+ Discourse"]

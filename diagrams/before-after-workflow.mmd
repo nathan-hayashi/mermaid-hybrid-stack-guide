@@ -1,0 +1,42 @@
+flowchart LR
+    subgraph BEFORE["BEFORE -- Manual Workflow (slow, error-prone)"]
+        direction LR
+        B1["Write Code"] -->|"developer done"| B2["Manual Review"]
+        B2 -->|"reviewer flags issues"| B3["Fix Issues"]
+        B3 -->|"re-submit"| B4["Re-review"]
+        B4 -->|"approved"| B5["Merge"]
+    end
+
+    subgraph AFTER["AFTER -- Orchestrated Workflow (automated, fast)"]
+        direction LR
+        A1["Write Code"] -->|"save file"| A2["Auto-Format Hook<br/>(PostToolUse -- Prettier)"]
+        A2 -->|"complexity scored"| A3["Threshold Router<br/>(T1 / T2 / T3)"]
+        A3 -->|"T2 or T3"| A4["Parallel Review"]
+
+        subgraph A4["Parallel Review (spawned subagents)"]
+            direction TB
+            R1["Security<br/>Reviewer"]
+            R2["Quality<br/>Reviewer"]
+            R3["Fixer<br/>Agent"]
+        end
+
+        A4 -->|"all reviewers pass"| A5["Auto-Merge"]
+    end
+
+    BEFORE ~~~ AFTER
+
+    style BEFORE fill:#FEF2F2,stroke:#EF4444,stroke-width:2px
+    style AFTER fill:#F0FDF4,stroke:#22C55E,stroke-width:2px
+    style B1 fill:#FCA5A5,color:#1a1a1a
+    style B2 fill:#FCA5A5,color:#1a1a1a
+    style B3 fill:#FCA5A5,color:#1a1a1a
+    style B4 fill:#FCA5A5,color:#1a1a1a
+    style B5 fill:#FCA5A5,color:#1a1a1a
+    style A1 fill:#86EFAC,color:#1a1a1a
+    style A2 fill:#86EFAC,color:#1a1a1a
+    style A3 fill:#86EFAC,color:#1a1a1a
+    style A4 fill:#DCFCE7,stroke:#16A34A,color:#1a1a1a
+    style R1 fill:#86EFAC,color:#1a1a1a
+    style R2 fill:#86EFAC,color:#1a1a1a
+    style R3 fill:#86EFAC,color:#1a1a1a
+    style A5 fill:#86EFAC,color:#1a1a1a

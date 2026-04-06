@@ -1,0 +1,29 @@
+---
+name: mermaid-diagrams
+description: Generate production-quality diagrams.
+allowed-tools: [Read, Write, Edit, Bash]
+---
+
+## Syntax Guardrails -- CRITICAL
+- Line breaks: use <br/> NEVER \n
+- Node labels: ALWAYS quote ["Label"]
+- Edge labels in pipes: NEVER quote -->|Label|
+- Node IDs: alphanumeric only
+
+## Diagram Type Selection
+- Flowcharts, sequences, Gantt --> **Mermaid** (.mmd files)
+- Heatmaps, grouped bars, data charts --> **Vega-Lite** (.vl.json files)
+- Multi-layer architectures --> **D2** (.d2 files)
+
+## Enterprise Colors
+- Primary: #F0F4FC
+- Text: #1F2329
+- Border: #2C5F8A
+- Secondary: #E8F5E9
+- Tertiary: #FFF3E0
+- Font: Inter, Segoe UI, Roboto, sans-serif
+
+## Post-Generation
+1. Run maid <file> to validate
+2. If fails, read error, fix, re-validate
+3. Run mermaid-render <file> to produce SVG

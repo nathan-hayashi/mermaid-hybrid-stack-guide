@@ -1,0 +1,57 @@
+flowchart TD
+    START["Error Encountered"] --> E1{"Identify<br/>Error Type"}
+
+    E1 -->|"permission denied"| SYM1["Symptom:<br/>EACCES on<br/>npm install -g"]
+    E1 -->|"literal backslash-n"| SYM2["Symptom:<br/>Node label shows<br/>literal backslash-n"]
+    E1 -->|"npm cache error"| SYM3["Symptom:<br/>npm EACCES<br/>on cache dir"]
+    E1 -->|"quoted pipe"| SYM4["Symptom:<br/>Mermaid parse error<br/>on edge label"]
+    E1 -->|"skill missing"| SYM5["Symptom:<br/>Skill not detected<br/>on startup"]
+    E1 -->|"hook fails"| SYM6["Symptom:<br/>Hook command<br/>not found"]
+
+    SYM1 --> RC1["Root Cause:<br/>npm global dir<br/>owned by root"]
+    SYM2 --> RC2["Root Cause:<br/>Used backslash-n<br/>instead of br tag"]
+    SYM3 --> RC3["Root Cause:<br/>npm cache dir<br/>permission mismatch"]
+    SYM4 --> RC4["Root Cause:<br/>Edge label<br/>wrapped in quotes"]
+    SYM5 --> RC5["Root Cause:<br/>Skill file not in<br/>~/.claude/skills/"]
+    SYM6 --> RC6["Root Cause:<br/>PATH not set<br/>in hook env"]
+
+    RC1 --> FIX1["Fix:<br/>Run: mkdir -p ~/.npm-global<br/>npm config set prefix '~/.npm-global'<br/>Add to PATH in .bashrc"]
+    RC2 --> FIX2["Fix:<br/>Replace backslash-n with br slash tag<br/>Example:<br/>A['Line 1br slashLine 2']"]
+    RC3 --> FIX3["Fix:<br/>sudo chown -R $USER ~/.npm<br/>or use nvm to manage node"]
+    RC4 --> FIX4["Fix:<br/>Remove quotes from pipe labels<br/>WRONG: -->'Label'--><br/>RIGHT: -->|Label|"]
+    RC5 --> FIX5["Fix:<br/>Copy .md skill file to<br/>~/.claude/skills/<br/>Restart Claude Code"]
+    RC6 --> FIX6["Fix:<br/>Add full PATH to<br/>settings.json hooks env<br/>or use absolute binary paths"]
+
+    FIX1 --> VERIFY["Verify Fix:<br/>Re-run failing command<br/>Confirm 0 errors"]
+    FIX2 --> VERIFY
+    FIX3 --> VERIFY
+    FIX4 --> VERIFY
+    FIX5 --> VERIFY
+    FIX6 --> VERIFY
+
+    VERIFY -->|"still failing"| ESCALATE["Escalate:<br/>Check GitHub Issues<br/>or upgrade tool version"]
+    VERIFY -->|"resolved"| DONE["Resume pipeline"]
+
+    style START fill:#1e3a5f,color:#fff
+    style E1 fill:#7c3aed,color:#fff
+    style SYM1 fill:#b91c1c,color:#fff
+    style SYM2 fill:#b91c1c,color:#fff
+    style SYM3 fill:#b91c1c,color:#fff
+    style SYM4 fill:#b91c1c,color:#fff
+    style SYM5 fill:#b91c1c,color:#fff
+    style SYM6 fill:#b91c1c,color:#fff
+    style RC1 fill:#b45309,color:#fff
+    style RC2 fill:#b45309,color:#fff
+    style RC3 fill:#b45309,color:#fff
+    style RC4 fill:#b45309,color:#fff
+    style RC5 fill:#b45309,color:#fff
+    style RC6 fill:#b45309,color:#fff
+    style FIX1 fill:#15803d,color:#fff
+    style FIX2 fill:#15803d,color:#fff
+    style FIX3 fill:#15803d,color:#fff
+    style FIX4 fill:#15803d,color:#fff
+    style FIX5 fill:#15803d,color:#fff
+    style FIX6 fill:#15803d,color:#fff
+    style VERIFY fill:#0f766e,color:#fff
+    style ESCALATE fill:#7f1d1d,color:#fca5a5
+    style DONE fill:#166534,color:#fff

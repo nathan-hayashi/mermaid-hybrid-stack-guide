@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Monthly pet adoptions by species",
+  "width": 500,
+  "height": 300,
+  "data": {
+    "values": [
+      {"month": "Jan", "species": "Dogs", "count": 12},
+      {"month": "Jan", "species": "Cats", "count": 8},
+      {"month": "Feb", "species": "Dogs", "count": 15},
+      {"month": "Feb", "species": "Cats", "count": 10},
+      {"month": "Mar", "species": "Dogs", "count": 20},
+      {"month": "Mar", "species": "Cats", "count": 14},
+      {"month": "Apr", "species": "Dogs", "count": 18},
+      {"month": "Apr", "species": "Cats", "count": 16}
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "month",
+      "type": "ordinal",
+      "title": "Month",
+      "sort": ["Jan", "Feb", "Mar", "Apr"]
+    },
+    "y": {
+      "field": "count",
+      "type": "quantitative",
+      "title": "Adoptions"
+    },
+    "color": {
+      "field": "species",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Dogs", "Cats"],
+        "range": ["#4C72B0", "#DD8452"]
+      }
+    },
+    "xOffset": {
+      "field": "species",
+      "type": "nominal"
+    }
+  },
+  "title": "Monthly Pet Adoptions (Q1-Q2)"
+}

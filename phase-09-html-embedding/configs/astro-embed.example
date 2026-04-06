@@ -1,0 +1,92 @@
+# astro-embed.example
+# Example img tag patterns for embedding pre-rendered diagrams in Astro components.
+# Copy these patterns into your .astro files as needed.
+# Files must first be copied to public/assets/ via embed-diagrams.sh.
+
+# ── Basic SVG embed (recommended for most diagrams) ───────────────────────────
+# SVGs are resolution-independent -- they scale perfectly on any screen.
+# Use this pattern for flowcharts, sequence diagrams, architecture diagrams.
+
+<img
+  src="/assets/threshold-escalation.svg"
+  alt="Threshold Escalation Flowchart"
+  width="800"
+  loading="lazy"
+/>
+
+# ── PNG embed (use when SVG rendering has artifacts) ──────────────────────────
+# PNGs are pixel-based. Always set both width and height to reserve layout space
+# and prevent cumulative layout shift (CLS).
+
+<img
+  src="/assets/threshold-escalation.png"
+  alt="Threshold Escalation Flowchart"
+  width="800"
+  height="600"
+  loading="lazy"
+/>
+
+# ── Above-the-fold diagram (no lazy loading) ──────────────────────────────────
+# For diagrams visible immediately on page load, omit loading="lazy"
+# so the browser fetches them right away.
+
+<img
+  src="/assets/system-overview.svg"
+  alt="System Architecture Overview"
+  width="900"
+/>
+
+# ── Full-width responsive SVG ─────────────────────────────────────────────────
+# Use CSS to make the diagram fill its container while respecting max-width.
+# Add this to your component's <style> block or global CSS.
+
+<img
+  src="/assets/architecture.svg"
+  alt="Architecture Diagram"
+  class="diagram-full-width"
+/>
+
+<style>
+  .diagram-full-width {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    display: block;
+    margin-inline: auto;
+  }
+</style>
+
+# ── In a content-column layout (Medium-style) ─────────────────────────────────
+# If your layout uses a centered content column (e.g., max-width: 780px),
+# diagrams wider than the column will overflow. Use the responsive pattern above
+# or constrain width to fit.
+
+<div class="content-column">
+  <img
+    src="/assets/sequence-diagram.svg"
+    alt="Authentication Sequence Diagram"
+    width="760"
+    loading="lazy"
+  />
+</div>
+
+# ── Astro component with typed props (TypeScript) ─────────────────────────────
+# If you build a reusable DiagramImage.astro component:
+
+---
+interface Props {
+  src: string;        // e.g., "/assets/my-diagram.svg"
+  alt: string;        // descriptive text for screen readers / SEO
+  width?: number;     // optional -- defaults to full responsive width
+  lazy?: boolean;     // set false for above-the-fold diagrams
+}
+const { src, alt, width = undefined, lazy = true } = Astro.props;
+---
+
+<img
+  src={src}
+  alt={alt}
+  width={width}
+  loading={lazy ? "lazy" : "eager"}
+  style="max-width: 100%; height: auto;"
+/>

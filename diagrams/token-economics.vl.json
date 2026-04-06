@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Token Economics by Tier",
+    "subtitle": "Estimated token usage per invocation across orchestration tiers",
+    "fontSize": 16,
+    "subtitleFontSize": 12
+  },
+  "width": 480,
+  "height": 300,
+  "data": {
+    "values": [
+      {"tier": "Tier 1", "tokenType": "Input Tokens",  "tokens": 8000},
+      {"tier": "Tier 1", "tokenType": "Output Tokens", "tokens": 2000},
+      {"tier": "Tier 2", "tokenType": "Input Tokens",  "tokens": 24000},
+      {"tier": "Tier 2", "tokenType": "Output Tokens", "tokens": 8000},
+      {"tier": "Tier 3", "tokenType": "Input Tokens",  "tokens": 60000},
+      {"tier": "Tier 3", "tokenType": "Output Tokens", "tokens": 20000}
+    ]
+  },
+  "mark": {"type": "bar", "cornerRadiusTopLeft": 3, "cornerRadiusTopRight": 3},
+  "encoding": {
+    "x": {
+      "field": "tier",
+      "type": "nominal",
+      "title": "Orchestration Tier",
+      "axis": {"labelFontSize": 13, "titleFontSize": 14}
+    },
+    "xOffset": {
+      "field": "tokenType",
+      "type": "nominal"
+    },
+    "y": {
+      "field": "tokens",
+      "type": "quantitative",
+      "title": "Token Count",
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 14,
+        "format": ",.0f"
+      }
+    },
+    "color": {
+      "field": "tokenType",
+      "type": "nominal",
+      "title": "Token Type",
+      "scale": {
+        "domain": ["Input Tokens", "Output Tokens"],
+        "range": ["#3B82F6", "#10B981"]
+      },
+      "legend": {
+        "titleFontSize": 13,
+        "labelFontSize": 12
+      }
+    },
+    "tooltip": [
+      {"field": "tier", "title": "Tier"},
+      {"field": "tokenType", "title": "Type"},
+      {"field": "tokens", "title": "Tokens", "format": ",.0f"}
+    ]
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {"grid": true, "gridOpacity": 0.3}
+  }
+}

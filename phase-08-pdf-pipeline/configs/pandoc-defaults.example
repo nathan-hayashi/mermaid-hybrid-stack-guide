@@ -1,0 +1,49 @@
+# pandoc-defaults.example
+# Example pandoc command options used by ~/bin/mermaid-pdf.
+# Copy to a pandoc defaults file (e.g. ~/.pandoc/defaults.yaml) if you
+# want to apply these globally without the wrapper script.
+#
+# Reference: https://pandoc.org/MANUAL.html#defaults-files
+#
+# Usage with defaults file:
+#   pandoc --defaults ~/.pandoc/mermaid-defaults.yaml input.md -o output.pdf
+
+# ── Equivalent command-line flags ────────────────────────────────────────────
+#
+# Core conversion:
+#   pandoc input.md -o output.pdf
+#
+# Geometry (1-inch margins, 11pt font):
+#   -V geometry:margin=1in
+#   -V fontsize=11pt
+#
+# Colored hyperlinks (blue by default in LaTeX):
+#   -V colorlinks=true
+#
+# Code block syntax highlighting:
+#   --highlight-style=tango
+#
+# Table of contents (optional):
+#   --toc
+#   --toc-depth=3
+#
+# PDF backends (in order of preference):
+#   --pdf-engine=xelatex       (LaTeX, best quality, ~2GB install)
+#   --pdf-engine=wkhtmltopdf   (HTML-based, smaller, good quality)
+#   --pdf-engine=weasyprint    (HTML-based, Python, pip install weasyprint)
+#
+# Standalone HTML (no PDF backend needed):
+#   pandoc input.md -o output.html --standalone
+#   Then print-to-PDF from browser.
+
+# ── Pandoc defaults YAML format ──────────────────────────────────────────────
+# (uncomment and save as ~/.pandoc/mermaid-defaults.yaml to use)
+#
+# standalone: true
+# highlight-style: tango
+# variables:
+#   geometry: margin=1in
+#   fontsize: 11pt
+#   colorlinks: true
+# table-of-contents: true
+# toc-depth: 3

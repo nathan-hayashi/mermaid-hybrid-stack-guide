@@ -1,0 +1,11 @@
+# gitignore-global.example
+# Copy to ~/.gitignore_global (or append to an existing one).
+# Then run: git config --global core.excludesFile ~/.gitignore_global
+#
+# These rules exclude rendered diagram artifacts from every git repository
+# on this machine. The .mmd source files are still tracked.
+
+# Mermaid / diagram rendered artifacts (keep .mmd source files)
+diagrams/*.svg
+diagrams/*.png
+diagrams/*.pdf

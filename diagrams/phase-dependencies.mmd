@@ -1,0 +1,58 @@
+flowchart LR
+    P0["P0<br/>Prereqs<br/>(Node, npm,<br/>Git verified)"]
+    P1["P1<br/>Mermaid CLI<br/>(mmdc installed<br/>globally)"]
+    P2["P2<br/>Vega-Lite CLI<br/>(vl2svg installed)"]
+    P3["P3<br/>D2 CLI<br/>(d2 binary<br/>installed)"]
+
+    P4["P4<br/>Diagram Dir<br/>(create output<br/>folders)"]
+    P5["P5<br/>Build Script<br/>(render-all.sh<br/>authored)"]
+    P6["P6<br/>CI Integration<br/>(GitHub Actions<br/>workflow)"]
+
+    P7["P7<br/>Mermaid<br/>Render Test<br/>(test .mmd file)"]
+    P8["P8<br/>Vega-Lite<br/>Render Test<br/>(test .vl.json)"]
+    P9["P9<br/>D2<br/>Render Test<br/>(test .d2 file)"]
+
+    P10["P10<br/>Lint Rules<br/>(mermaid syntax<br/>linter config)"]
+    P11["P11<br/>Watch Mode<br/>(hot-reload<br/>dev server)"]
+
+    P12["P12<br/>REJECTED<br/>(Playwright<br/>renderer -- dropped)"]
+
+    P13["P13<br/>Full Pipeline<br/>Validation<br/>(ALL phases done)"]
+
+    P0 --> P1
+    P1 --> P2
+    P2 --> P3
+
+    P3 --> P4
+    P3 --> P5
+    P3 --> P6
+
+    P1 --> P7
+    P7 --> P8
+    P1 --> P8
+    P8 --> P9
+
+    P3 --> P10
+    P3 --> P11
+
+    P4 --> P13
+    P5 --> P13
+    P6 --> P13
+    P9 --> P13
+    P10 --> P13
+    P11 --> P13
+
+    style P0 fill:#1e3a5f,color:#fff
+    style P1 fill:#1d4ed8,color:#fff
+    style P2 fill:#1d4ed8,color:#fff
+    style P3 fill:#1d4ed8,color:#fff
+    style P4 fill:#15803d,color:#fff
+    style P5 fill:#15803d,color:#fff
+    style P6 fill:#15803d,color:#fff
+    style P7 fill:#0f766e,color:#fff
+    style P8 fill:#0f766e,color:#fff
+    style P9 fill:#0f766e,color:#fff
+    style P10 fill:#b45309,color:#fff
+    style P11 fill:#b45309,color:#fff
+    style P12 fill:#7f1d1d,color:#fca5a5,stroke:#ef4444,stroke-dasharray:6
+    style P13 fill:#4c1d95,color:#fff,stroke:#a855f7,stroke-width:3px

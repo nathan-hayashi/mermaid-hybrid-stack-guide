@@ -1,0 +1,15 @@
+flowchart TD
+    START(["Incoming Prompt"]) --> PARSE["Parse Prompt<br/>Extract Keywords"]
+    PARSE --> SCORE{"Complexity<br/>Scoring Engine"}
+    SCORE --> S1["File Count<br/>(0-3 pts)"]
+    SCORE --> S2["Language Count<br/>(0-3 pts)"]
+    SCORE --> S3["Keyword Signals<br/>(0-4 pts)"]
+    SCORE --> S4["Cross-Cutting<br/>Concerns (0-2 pts)"]
+    S1 --> SUM["Sum Score<br/>(0-12 range)"]
+    S2 --> SUM
+    S3 --> SUM
+    S4 --> SUM
+    SUM --> ROUTE{"Route by<br/>Threshold"}
+    ROUTE -->|Score <= 4| T1["TIER 1<br/>Solo Agent<br/>(Opus 4.6)"]
+    ROUTE -->|Score 5-8| T2["TIER 2<br/>Lean Pipeline<br/>(3 Subagents)"]
+    ROUTE -->|Score >= 9| T3["TIER 3<br/>Full Orchestra<br/>(OCR + Codex)"]

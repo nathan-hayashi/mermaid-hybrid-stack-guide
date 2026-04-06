@@ -1,0 +1,18 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A simple bar chart",
+  "data": {
+    "values": [
+      {"category": "Mermaid", "count": 6},
+      {"category": "Vega-Lite", "count": 2},
+      {"category": "D2", "count": 1},
+      {"category": "Markdown", "count": 1}
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "category", "type": "nominal", "title": "Diagram Tool"},
+    "y": {"field": "count", "type": "quantitative", "title": "Number of Diagrams"},
+    "color": {"field": "category", "type": "nominal", "legend": null}
+  }
+}

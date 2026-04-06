@@ -1,0 +1,38 @@
+flowchart TD
+    A["Incoming Prompt"] --> B["Parse Prompt Text"]
+    B --> C["Complexity Scoring Engine"]
+
+    C --> D1["File Count<br/>0 = none<br/>1 = 1-2 files<br/>2 = 3-5 files<br/>3 = 6+ files<br/>Max: 3"]
+    C --> D2["Language Count<br/>0 = single lang<br/>1 = 2 langs<br/>2 = 3 langs<br/>3 = 4+ langs<br/>Max: 3"]
+    C --> D3["Keyword Signals<br/>0 = none<br/>1 = 1 signal<br/>2 = 2-3 signals<br/>3 = 4-5 signals<br/>4 = refactor/arch/security<br/>Max: 4"]
+    C --> D4["Cross-Cutting Concerns<br/>0 = none<br/>1 = 1 concern<br/>2 = 2+ concerns<br/>Max: 2"]
+
+    D1 --> E["Sum Score<br/>Range: 0 to 12"]
+    D2 --> E
+    D3 --> E
+    D4 --> E
+
+    E --> F{"Route by<br/>Threshold"}
+
+    F -->|"score <= 4"| G["Tier 1<br/>Solo Agent<br/>Direct execution<br/>No subagents"]
+    F -->|"score 5-8"| H["Tier 2<br/>Lean Pipeline<br/>Implement then<br/>spawn review subagents"]
+    F -->|"score >= 9"| I["Tier 3<br/>Full Orchestra<br/>Ultrathink plan +<br/>OCR + Codex review"]
+
+    G --> J["Announce: [T1]<br/>Proceed directly"]
+    H --> K["Announce: [T2]<br/>Implement + review"]
+    I --> L["Announce: [T3]<br/>Plan + implement + audit"]
+
+    style A fill:#1e3a5f,color:#fff
+    style C fill:#7c3aed,color:#fff
+    style D1 fill:#1d4ed8,color:#fff
+    style D2 fill:#1d4ed8,color:#fff
+    style D3 fill:#1d4ed8,color:#fff
+    style D4 fill:#1d4ed8,color:#fff
+    style E fill:#0f766e,color:#fff
+    style F fill:#b45309,color:#fff
+    style G fill:#15803d,color:#fff
+    style H fill:#b45309,color:#fff
+    style I fill:#b91c1c,color:#fff
+    style J fill:#15803d,color:#fff
+    style K fill:#b45309,color:#fff
+    style L fill:#b91c1c,color:#fff

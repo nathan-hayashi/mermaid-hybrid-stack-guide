@@ -1,0 +1,108 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Tool Selection Decision Matrix",
+    "subtitle": "3 = Best fit  |  2 = Possible  |  1 = Poor fit  |  0 = Cannot do",
+    "fontSize": 16,
+    "subtitleFontSize": 12
+  },
+  "width": 300,
+  "height": 380,
+  "data": {
+    "values": [
+      {"diagramType": "Flowchart",    "tool": "Mermaid",    "score": 3},
+      {"diagramType": "Flowchart",    "tool": "Vega-Lite",  "score": 0},
+      {"diagramType": "Flowchart",    "tool": "D2",         "score": 2},
+      {"diagramType": "Sequence",     "tool": "Mermaid",    "score": 3},
+      {"diagramType": "Sequence",     "tool": "Vega-Lite",  "score": 0},
+      {"diagramType": "Sequence",     "tool": "D2",         "score": 1},
+      {"diagramType": "Gantt",        "tool": "Mermaid",    "score": 3},
+      {"diagramType": "Gantt",        "tool": "Vega-Lite",  "score": 1},
+      {"diagramType": "Gantt",        "tool": "D2",         "score": 0},
+      {"diagramType": "Heatmap",      "tool": "Mermaid",    "score": 0},
+      {"diagramType": "Heatmap",      "tool": "Vega-Lite",  "score": 3},
+      {"diagramType": "Heatmap",      "tool": "D2",         "score": 0},
+      {"diagramType": "Bar Chart",    "tool": "Mermaid",    "score": 1},
+      {"diagramType": "Bar Chart",    "tool": "Vega-Lite",  "score": 3},
+      {"diagramType": "Bar Chart",    "tool": "D2",         "score": 0},
+      {"diagramType": "Architecture", "tool": "Mermaid",    "score": 2},
+      {"diagramType": "Architecture", "tool": "Vega-Lite",  "score": 0},
+      {"diagramType": "Architecture", "tool": "D2",         "score": 3},
+      {"diagramType": "State",        "tool": "Mermaid",    "score": 3},
+      {"diagramType": "State",        "tool": "Vega-Lite",  "score": 0},
+      {"diagramType": "State",        "tool": "D2",         "score": 2},
+      {"diagramType": "ER Diagram",   "tool": "Mermaid",    "score": 3},
+      {"diagramType": "ER Diagram",   "tool": "Vega-Lite",  "score": 0},
+      {"diagramType": "ER Diagram",   "tool": "D2",         "score": 2},
+      {"diagramType": "Class",        "tool": "Mermaid",    "score": 3},
+      {"diagramType": "Class",        "tool": "Vega-Lite",  "score": 0},
+      {"diagramType": "Class",        "tool": "D2",         "score": 2}
+    ]
+  },
+  "mark": "rect",
+  "encoding": {
+    "x": {
+      "field": "tool",
+      "type": "nominal",
+      "title": "Tool",
+      "sort": ["Mermaid", "Vega-Lite", "D2"],
+      "axis": {
+        "labelFontSize": 13,
+        "titleFontSize": 14,
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "diagramType",
+      "type": "nominal",
+      "title": "Diagram Type",
+      "sort": ["Flowchart", "Sequence", "Gantt", "Heatmap", "Bar Chart", "Architecture", "State", "ER Diagram", "Class"],
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 14
+      }
+    },
+    "color": {
+      "field": "score",
+      "type": "quantitative",
+      "title": "Fit Score",
+      "scale": {
+        "domain": [0, 1, 2, 3],
+        "range": ["#DC2626", "#F97316", "#EAB308", "#16A34A"]
+      },
+      "legend": {
+        "titleFontSize": 12,
+        "labelFontSize": 11,
+        "values": [0, 1, 2, 3],
+        "labelExpr": "datum.value == 0 ? '0 Cannot' : datum.value == 1 ? '1 Poor' : datum.value == 2 ? '2 Possible' : '3 Best'"
+      }
+    },
+    "tooltip": [
+      {"field": "diagramType", "title": "Diagram Type"},
+      {"field": "tool", "title": "Tool"},
+      {"field": "score", "title": "Fit Score",
+       "condition": {"test": "datum.score == 3", "value": "3 -- Best fit"}}
+    ]
+  },
+  "layer": [
+    {"mark": "rect"},
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 16,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "text": {"field": "score", "type": "quantitative"},
+        "color": {
+          "condition": {"test": "datum.score >= 2", "value": "#fff"},
+          "value": "#fff"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {"grid": false}
+  }
+}

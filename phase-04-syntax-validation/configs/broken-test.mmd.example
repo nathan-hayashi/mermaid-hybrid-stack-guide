@@ -1,0 +1,20 @@
+%% broken-test.mmd.example
+%%
+%% This file is INTENTIONALLY BROKEN for testing purposes.
+%% maid should reject it with a syntax error.
+%%
+%% Bug: quoted strings inside pipe edge labels are not valid Mermaid syntax.
+%%
+%%   WRONG:  B -->|"Score <= 4"| C
+%%   RIGHT:  B -->|Score <= 4| C
+%%
+%% The quotes inside |"..."| cause the parser to fail. maid catches this
+%% in ~1ms; mermaid-cli would spin Chromium for several seconds then silently
+%% produce a blank image.
+
+flowchart LR
+    A["Input Score"] --> B["Evaluate"]
+    B -->|"Score <= 4"| C["Low Priority"]
+    B -->|"Score >= 5"| D["High Priority"]
+    C --> E["Queue Standard"]
+    D --> F["Queue Urgent"]

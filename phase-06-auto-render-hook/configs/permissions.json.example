@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(maid*)",
+      "Bash(mermaid-render*)",
+      "Bash(mermaid-validate*)",
+      "Bash(mermaid-render-dark*)",
+      "Bash(d2*)",
+      "Bash(d2-render*)",
+      "Bash(vl2svg*)",
+      "Bash(vl2png*)",
+      "Bash(vegalite-render*)",
+      "Bash(render-all-diagrams*)",
+      "Bash(docker run*)"
+    ]
+  }
+}

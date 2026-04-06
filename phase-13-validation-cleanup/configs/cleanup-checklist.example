@@ -1,0 +1,70 @@
+# cleanup-checklist.example
+# Final cleanup checklist before committing the completed guide.
+# Check off each item manually after completing the step.
+# Run ./cleanup-instructions.sh for detailed commands for each step.
+
+## Pre-Commit Checks
+
+[ ] Unstaged accidental files
+    Command: git reset HEAD .
+    Then re-add only intended files.
+
+[ ] Removed test diagrams from diagrams/
+    Delete any scratch files: test-*.mmd, test-*.svg, test-*.png
+    Keep only final, named diagram files.
+
+[ ] .claude/settings.local.json added to .gitignore
+    Command: echo '.claude/settings.local.json' >> .gitignore
+    Verify: git check-ignore -v .claude/settings.local.json
+
+[ ] git status is clean
+    Command: git status && git diff --staged
+    No secrets, large binaries, or unintended files staged.
+
+[ ] No hardcoded secrets in any committed file
+    Check: grep -r "api_key\|password\|token\|secret" --include="*.json" --include="*.sh" .
+
+## Validation Checks
+
+[ ] All .mmd files have corresponding .svg outputs
+    Command: ./run-validation.sh
+
+[ ] All .vl.json files have corresponding .svg outputs
+    Command: ./run-validation.sh
+
+[ ] All .d2 files have corresponding .svg outputs
+    Command: ./run-validation.sh
+
+[ ] render-all-diagrams runs without errors on the diagrams/ directory
+    Command: render-all-diagrams ./diagrams
+
+## Infrastructure Verification (outside repo)
+
+[ ] ~/bin/mermaid-render exists and is executable
+    Command: which mermaid-render
+
+[ ] ~/bin/vegalite-render exists and is executable
+    Command: which vegalite-render
+
+[ ] ~/bin/d2-render exists and is executable
+    Command: which d2-render
+
+[ ] ~/bin/render-all-diagrams exists and is executable
+    Command: which render-all-diagrams
+
+[ ] mermaid-diagrams skill is active in ~/.claude/settings.json
+    Command: cat ~/.claude/settings.json | grep mermaid
+
+[ ] PostToolUse hook is active for auto-rendering
+    Command: cat ~/.claude/settings.json | grep PostToolUse
+
+## Final Commit
+
+[ ] Commit message follows conventional format
+    Example: feat: complete Mermaid hybrid stack guide (Phases 0-13)
+
+[ ] All phase directories are included in the commit
+    Verify: git diff --staged --name-only | grep phase-
+
+[ ] Project README documents the infrastructure setup steps
+    Future collaborators need to know to run install scripts.

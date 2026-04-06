@@ -1,0 +1,25 @@
+# docker-resources.example
+# Recommended Docker Desktop resource settings for Mermaid CLI rendering.
+#
+# WHERE TO APPLY: [WINDOWS]
+#   Docker Desktop → Settings → Resources → Advanced
+#
+# These are minimums for reliable Puppeteer/Chromium operation inside the
+# mermaid-cli container. Increase CPU/RAM if you render many large diagrams.
+
+# ── Memory ───────────────────────────────────────────────────────────────────
+# Chromium (used by Puppeteer inside mmdc) is memory-hungry.
+# Less than 2 GB can cause silent render failures or OOM kills.
+memory = 4GB
+
+# ── CPUs ─────────────────────────────────────────────────────────────────────
+# 2 CPUs is enough for sequential renders. Raise to 4+ for batch rendering.
+cpus = 2
+
+# ── Swap ─────────────────────────────────────────────────────────────────────
+# Buffer for spikes when multiple containers start simultaneously.
+swap = 1GB
+
+# ── Disk image ───────────────────────────────────────────────────────────────
+# Default is usually fine. The mermaid-cli image is ~400 MB.
+# disk-size = 64GB   # uncomment and adjust only if you run low on space

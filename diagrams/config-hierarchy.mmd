@@ -1,0 +1,20 @@
+flowchart TD
+    L1["Level 1 -- HIGHEST PRIORITY<br/>Managed Policy<br/>(Enterprise / Organization settings)<br/>Cannot be overridden by any user config"]
+    L2["Level 2<br/>CLI Flags<br/>(--model, --effort, --verbose)<br/>Applied per invocation at runtime"]
+    L3["Level 3<br/>CLAUDE.local.md<br/>(Per-machine local overrides)<br/>Not committed to version control"]
+    L4["Level 4<br/>Project CLAUDE.md<br/>(Per-repository instructions)<br/>Checked into codebase root"]
+    L5["Level 5<br/>User CLAUDE.md<br/>(~/.claude/CLAUDE.md)<br/>Global personal preferences"]
+    L6["Level 6 -- LOWEST PRIORITY<br/>System Defaults<br/>(Built-in Claude Code behavior)<br/>Applied when no other config exists"]
+
+    L1 -->|"overrides"| L2
+    L2 -->|"overrides"| L3
+    L3 -->|"overrides"| L4
+    L4 -->|"overrides"| L5
+    L5 -->|"overrides"| L6
+
+    style L1 fill:#1e3a5f,color:#ffffff,stroke:#60a5fa,stroke-width:3px
+    style L2 fill:#1d4ed8,color:#ffffff,stroke:#93c5fd,stroke-width:2px
+    style L3 fill:#4338ca,color:#ffffff,stroke:#a5b4fc,stroke-width:2px
+    style L4 fill:#6d28d9,color:#ffffff,stroke:#c4b5fd,stroke-width:2px
+    style L5 fill:#7c3aed,color:#ffffff,stroke:#ddd6fe,stroke-width:2px
+    style L6 fill:#374151,color:#9ca3af,stroke:#6b7280,stroke-width:1px

@@ -1,0 +1,30 @@
+gantt
+    title Mermaid Hybrid Stack Implementation Timeline
+    dateFormat HH:mm
+    axisFormat %H:%M
+
+    section Sequential Gate
+    P0 Verify Prerequisites         :p0, 00:00, 10m
+    P1 Install Mermaid CLI          :p1, after p0, 15m
+    P2 Install Vega-Lite CLI        :p2, after p1, 10m
+    P3 Install D2 CLI               :p3, after p2, 20m
+
+    section Infrastructure (parallel after P3)
+    P4 Create Diagram Directories   :p4, after p3, 5m
+    P5 Author Build Script          :p5, after p3, 15m
+    P6 CI GitHub Actions Workflow   :p6, after p3, 10m
+
+    section Render Testing
+    P7 Mermaid Render Test          :p7, after p1, 10m
+    P8 Vega-Lite Render Test        :p8, after p7, 20m
+    P9 D2 Render Test               :p9, after p8, 10m
+
+    section Quality (parallel after P3)
+    P10 Configure Lint Rules        :p10, after p3, 15m
+    P11 Enable Watch Mode Dev       :p11, after p3, 15m
+
+    section Excluded
+    P12 Playwright Renderer SKIP    :crit, p12, after p3, 5m
+
+    section Finalization
+    P13 Full Pipeline Validation    :milestone, p13, after p9, 30m

@@ -1,0 +1,24 @@
+direction: right
+
+Frontend: "Frontend" {
+  Website: "Website"
+  MobileApp: "Mobile App"
+}
+
+Backend: "Backend" {
+  APIServer: "API Server"
+  Database: "Database"
+}
+
+Services: "Services" {
+  AdoptionService: "Adoption Service"
+  MedicalRecords: "Medical Records"
+  Inventory: "Inventory"
+}
+
+Frontend.Website -> Backend.APIServer: "HTTPS"
+Frontend.MobileApp -> Backend.APIServer: "HTTPS"
+Backend.APIServer -> Backend.Database: "SQL"
+Backend.APIServer -> Services.AdoptionService: "gRPC"
+Backend.APIServer -> Services.MedicalRecords: "gRPC"
+Backend.APIServer -> Services.Inventory: "gRPC"

@@ -1,0 +1,126 @@
+title: Claude Code Agent Orchestration -- System Architecture {
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+layer1: Layer 1 -- Configuration {
+  style.fill: "#EFF6FF"
+  style.stroke: "#3B82F6"
+  style.stroke-width: 2
+
+  claudemd: CLAUDE.md {
+    shape: document
+    style.fill: "#DBEAFE"
+  }
+  rules: Rules {
+    shape: page
+    style.fill: "#DBEAFE"
+  }
+  memory: Memory {
+    shape: cylinder
+    style.fill: "#DBEAFE"
+  }
+  settings: Settings {
+    shape: page
+    style.fill: "#DBEAFE"
+  }
+}
+
+layer2: Layer 2 -- Enforcement & Routing {
+  style.fill: "#FFF7ED"
+  style.stroke: "#F97316"
+  style.stroke-width: 2
+
+  hooks: Hooks {
+    shape: hexagon
+    style.fill: "#FED7AA"
+
+    pretooluse: PreToolUse {
+      shape: step
+    }
+    posttooluse: PostToolUse {
+      shape: step
+    }
+  }
+
+  router: Threshold Router {
+    shape: diamond
+    style.fill: "#FED7AA"
+  }
+}
+
+layer3: Layer 3 -- Execution {
+  style.fill: "#F0FDF4"
+  style.stroke: "#22C55E"
+  style.stroke-width: 2
+
+  tier1: Tier 1 -- Solo Agent {
+    shape: rectangle
+    style.fill: "#DCFCE7"
+  }
+  tier2: Tier 2 -- Lean Pipeline {
+    shape: rectangle
+    style.fill: "#DCFCE7"
+  }
+  tier3: Tier 3 -- Full Orchestra {
+    shape: rectangle
+    style.fill: "#DCFCE7"
+  }
+  skills: Skills Library {
+    shape: package
+    style.fill: "#DCFCE7"
+  }
+}
+
+layer4: Layer 4 -- Review Agents {
+  style.fill: "#FDF4FF"
+  style.stroke: "#A855F7"
+  style.stroke-width: 2
+
+  security: Security Reviewer {
+    shape: person
+    style.fill: "#F3E8FF"
+  }
+  quality: Quality Reviewer {
+    shape: person
+    style.fill: "#F3E8FF"
+  }
+  fixer: Fixer Agent {
+    shape: person
+    style.fill: "#F3E8FF"
+  }
+  ocr: OCR Plugin {
+    shape: page
+    style.fill: "#F3E8FF"
+  }
+  codex: Codex Plugin {
+    shape: page
+    style.fill: "#F3E8FF"
+  }
+}
+
+# Connections: Config -> Enforcement
+layer1.claudemd -> layer2.hooks: "loads rules"
+layer1.rules -> layer2.router: "scoring config"
+layer1.memory -> layer2.router: "context"
+layer1.settings -> layer2.hooks: "event bindings"
+
+# Connections: Enforcement -> Execution
+layer2.hooks -> layer3.tier1: "T1 pass-through"
+layer2.router -> layer3.tier1: "score <= 4"
+layer2.router -> layer3.tier2: "score 5-8"
+layer2.router -> layer3.tier3: "score >= 9"
+layer2.hooks -> layer3.skills: "PostToolUse triggers"
+
+# Connections: Execution -> Review
+layer3.tier2 -> layer4.security: "spawns"
+layer3.tier2 -> layer4.quality: "spawns"
+layer3.tier3 -> layer4.security: "spawns"
+layer3.tier3 -> layer4.quality: "spawns"
+layer3.tier3 -> layer4.fixer: "spawns"
+layer4.ocr -> layer4.security: "feeds"
+layer4.codex -> layer4.quality: "feeds"
+layer3.skills -> layer3.tier2: "loaded by"
+layer3.skills -> layer3.tier3: "loaded by"
